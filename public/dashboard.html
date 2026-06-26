@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact App Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-content">
+        <h2>Dashboard</h2>
+        <div class="navbar-actions">
+          <span id="username" class="user-greeting"></span>
+          <button id="logoutBtn" class="btn-logout">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container dashboard-container">
+      <div class="dashboard-card">
+        <div id="dashboardBanner" class="alert"></div>
+        <div class="card-header">
+          <div class="header-left">
+            <h1>Your Contacts</h1>
+            <div class="search-wrapper">
+              <input
+                id="contactSearch"
+                class="search-input"
+                type="search"
+                placeholder="Search contacts..." />
+            </div>
+            <div class="search-wrapper">
+              <select id="categoryFilter" class="search-input">
+                <option value="all">All categories</option>
+              </select>
+            </div>
+          </div>
+          <div class="header-actions">
+            <button id="importContactsBtn" class="btn-secondary" type="button">
+              Import
+            </button>
+            <button id="exportCsvBtn" class="btn-secondary" type="button">
+              Export CSV
+            </button>
+            <button id="exportJsonBtn" class="btn-secondary" type="button">
+              Export JSON
+            </button>
+            <button id="createContactBtn" class="btn-primary" type="button">
+              + Create Contact
+            </button>
+            <input
+              type="file"
+              id="importFileInput"
+              accept=".csv,.json"
+              hidden />
+          </div>
+        </div>
+
+        <div id="dashboardMetrics" class="dashboard-metrics">
+          <div class="metric-card">
+            <p>Total contacts</p>
+            <strong id="metricTotal">0</strong>
+          </div>
+          <div class="metric-card">
+            <p>Top category</p>
+            <strong id="metricPopular">None</strong>
+          </div>
+        </div>
+
+        <div id="contactsContainer">
+          <p class="info-text">Loading contacts...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create/Edit Contact Modal -->
+    <div id="contactModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="contactModalBanner" class="alert"></div>
+        <h2 id="modalTitle">Create Contact</h2>
+        <form id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="contactName">Name</label>
+            <input type="text" id="contactName" placeholder="e.g., John Doe" />
+            <p class="field-error" id="contactNameError"></p>
+          </div>
+          <div class="form-group">
+            <label for="contactPhone">Phone</label>
+            <input
+              type="text"
+              id="contactPhone"
+              placeholder="e.g., 03001234567" />
+            <p class="field-error" id="contactPhoneError"></p>
+          </div>
+          <div class="form-group">
+            <label for="contactAddress">Address</label>
+            <input
+              type="text"
+              id="contactAddress"
+              placeholder="e.g., 123 Main Street" />
+            <p class="field-error" id="contactAddressError"></p>
+          </div>
+          <div class="form-group">
+            <label for="contactCategory">Category</label>
+            <input
+              type="text"
+              id="contactCategory"
+              placeholder="e.g., Family, Work, Supplier" />
+            <p class="field-error" id="contactCategoryError"></p>
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-secondary"
+              onclick="closeContactModal()">
+              Cancel
+            </button>
+            <button type="submit" class="btn-primary">Save Contact</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
+        <h2>Confirm Delete</h2>
+        <p>Are you sure you want to delete this contact?</p>
+        <div class="modal-actions">
+          <button class="btn-secondary" onclick="closeDeleteModal()">
+            Cancel
+          </button>
+          <button class="btn-danger" onclick="confirmDelete()">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>
