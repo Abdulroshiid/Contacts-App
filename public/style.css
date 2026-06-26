@@ -105,7 +105,7 @@ body {
 
 .password-toggle {
   position: absolute;
-  right: 8px;
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
   background-color: transparent;
