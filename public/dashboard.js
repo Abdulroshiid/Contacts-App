@@ -414,7 +414,10 @@ async function saveContact(e) {
 
   if (validationErrors) {
     displayFieldErrors(validationErrors);
-    showContactModalBanner("Please review the highlighted fields.", "error");
+    showContactModalBanner(
+      "Please check the highlighted fields for errors.",
+      "error",
+    );
     return;
   }
 
