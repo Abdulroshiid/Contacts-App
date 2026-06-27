@@ -79,7 +79,7 @@ exports.login = (req, res) => {
       if (!user) {
         return res
           .status(401)
-          .json({ error: "Invalid username, email or password" });
+          .json({ error: "Invalid username/email or password" });
       }
 
       bcryptjs.compare(password, user.password, (err, isPasswordValid) => {
