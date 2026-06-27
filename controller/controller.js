@@ -96,7 +96,7 @@ exports.login = (req, res) => {
         // Set session
         req.session.userId = user.id;
         req.session.username = user.username;
-        res.json({ message: "Login was successful", username: user.username });
+        res.json({ message: "Login successful", username: user.username });
       });
     },
   );
