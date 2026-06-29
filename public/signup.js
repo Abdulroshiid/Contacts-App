@@ -75,7 +75,7 @@ window.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Signup error:", error);
       updateSubmitState(false);
-      showStatusBanner("An error occurred. Please try again.", "error");
+      showStatusBanner("An error occurred, please try again.", "error");
     }
   });
 
