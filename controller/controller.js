@@ -279,7 +279,10 @@ exports.deleteContact = (req, res) => {
         return res.status(404).json({ error: "Contact not found" });
       }
 
-      res.json({ message: "Contact was deleted successfully", id: contactId });
+      res.json({
+        message: "Contact have been deleted successfully",
+        id: contactId,
+      });
     },
   );
 };
