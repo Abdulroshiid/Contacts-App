@@ -2,9 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("forgotPasswordForm");
   const emailInput = document.getElementById("email");
   const statusBanner = document.getElementById("statusBanner");
-  const resetLinkPanel = document.getElementById("resetLinkPanel");
-  const resetLink = document.getElementById("resetLink");
-  const continueResetBtn = document.getElementById("continueResetBtn");
 
   if (!form) {
     return;
@@ -68,16 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       setStatus(
-        data.message || "If an account exists, a reset link is ready.",
+        data.message || "If an account exists, a reset email has been sent.",
         "success",
       );
-
-      if (data.resetLink) {
-        resetLink.href = data.resetLink;
-        resetLink.textContent = data.resetLink;
-        continueResetBtn.href = data.resetLink;
-        resetLinkPanel.classList.remove("hidden");
-      }
     } catch (error) {
       console.error("Forgot password error:", error);
       setStatus("An error occurred. Please try again.", "error");

@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const bcryptjs = require("bcryptjs");
 const db = require("../database");
 const { requireLogin } = require("../auth-middleware");
+const { sendPasswordResetEmail } = require("../mailer");
 
 // ========== AUTH CONTROLLERS ========
 
@@ -137,7 +138,7 @@ exports.forgotPassword = (req, res) => {
   db.get(
     "SELECT id FROM users WHERE email = ?",
     [normalizedEmail],
-    (err, user) => {
+    async (err, user) => {
       if (err) {
         return res.status(500).json({ error: "Error querying database" });
       }
@@ -145,7 +146,7 @@ exports.forgotPassword = (req, res) => {
       if (!user) {
         return res.status(200).json({
           message:
-            "If an account exists for that email, a reset link has been prepared.",
+            "If an account exists for that email, a reset email has been sent.",
         });
       }
 
@@ -165,19 +166,27 @@ exports.forgotPassword = (req, res) => {
           db.run(
             "INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)",
             [user.id, token, expiresAt],
-            (insertErr) => {
+            async (insertErr) => {
               if (insertErr) {
                 return res
                   .status(500)
                   .json({ error: "Error preparing password reset" });
               }
 
-              const resetLink = `${req.protocol}://${req.get("host")}/reset-password.html?token=${token}`;
-              res.status(200).json({
-                message:
-                  "If an account exists for that email, a reset link has been prepared.",
-                resetLink,
-              });
+              const resetLink = `${process.env.APP_URL || `${req.protocol}://${req.get("host")}`}/reset-password.html?token=${token}`;
+
+              try {
+                await sendPasswordResetEmail(normalizedEmail, resetLink);
+                return res.status(200).json({
+                  message:
+                    "If an account exists for that email, a reset email has been sent.",
+                });
+              } catch (mailError) {
+                console.error("Password reset email failed:", mailError);
+                return res
+                  .status(500)
+                  .json({ error: "Unable to send reset email right now." });
+              }
             },
           );
         },
