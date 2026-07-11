@@ -18,42 +18,35 @@
         <form id="signupForm" novalidate>
           <div class="form-group">
             <label for="username">Username</label>
-            <div class="input-icon-wrapper">
-              <i class="fas fa-user input-icon"></i>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Enter username here" />
-            </div>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter username here..." />
             <p class="field-error" id="usernameError"></p>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <div class="input-icon-wrapper">
-              <i class="fas fa-envelope input-icon"></i>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                placeholder="Enter email here" />
-            </div>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Enter email here..." />
             <p class="field-error" id="emailError"></p>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
             <div class="password-input-wrapper">
-              <i class="fas fa-lock input-icon"></i>
               <input
                 type="password"
                 id="password"
                 name="password"
-                placeholder="Enter your password here" />
+                placeholder="Enter a strong password here..." />
               <button
                 type="button"
                 class="password-toggle"
-                onclick="togglePassword(event, 'password')">
-                <i class="fas fa-eye"></i>
+                onclick="togglePassword('password')">
+                <i class="fa fa-eye"></i>
               </button>
             </div>
             <p class="field-error" id="passwordError"></p>
@@ -61,17 +54,16 @@
           <div class="form-group">
             <label for="confirmPassword">Confirm Password</label>
             <div class="password-input-wrapper">
-              <i class="fas fa-lock input-icon"></i>
               <input
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
-                placeholder="Re-enter password here" />
+                placeholder="Re-enter password here..." />
               <button
                 type="button"
                 class="password-toggle"
-                onclick="togglePassword(event, 'confirmPassword')">
-                <i class="fas fa-eye"></i>
+                onclick="togglePassword('confirmPassword')">
+                <i class="fa fa-eye"></i>
               </button>
             </div>
             <p class="field-error" id="confirmPasswordError"></p>
