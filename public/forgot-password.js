@@ -67,7 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      setStatus(data.message || "If an account exists, a reset link is ready.", "success");
+      setStatus(
+        data.message || "If an account exists, a reset link is ready.",
+        "success",
+      );
 
       if (data.resetLink) {
         resetLink.href = data.resetLink;
