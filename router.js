@@ -12,6 +12,12 @@ router.post("/api/auth/signup", controller.signup);
 // POST /api/auth/login
 router.post("/api/auth/login", controller.login);
 
+// POST /api/auth/forgot-password
+router.post("/api/auth/forgot-password", controller.forgotPassword);
+
+// POST /api/auth/reset-password
+router.post("/api/auth/reset-password", controller.resetPassword);
+
 // POST /api/auth/logout
 router.post("/api/auth/logout", controller.logout);
 

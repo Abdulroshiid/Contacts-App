@@ -78,6 +78,24 @@ const initializeDatabase = () => {
       },
     );
 
+    // Password reset tokens table
+    db.run(
+      `
+      CREATE TABLE IF NOT EXISTS password_resets (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        token TEXT UNIQUE NOT NULL,
+        expires_at DATETIME NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      )
+    `,
+      (err) => {
+        if (err) console.error("Error creating password_resets table:", err);
+        else console.log("Password reset table ready");
+      },
+    );
+
     // Sessions table
     db.run(
       `
