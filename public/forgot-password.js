@@ -2,9 +2,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("forgotPasswordForm");
   const emailInput = document.getElementById("email");
   const statusBanner = document.getElementById("statusBanner");
+  let statusTimeout;
 
   if (!form) {
     return;
+  }
+
+  function clearStatusTimer() {
+    if (statusTimeout) {
+      clearTimeout(statusTimeout);
+      statusTimeout = null;
+    }
   }
 
   function setStatus(message, type = "success") {
@@ -12,9 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    clearStatusTimer();
     statusBanner.textContent = message;
     statusBanner.classList.remove("show", "success", "error");
     statusBanner.classList.add("show", type);
+
+    statusTimeout = window.setTimeout(() => {
+      statusBanner.classList.remove("show", "success", "error");
+      statusBanner.textContent = "";
+    }, 10000);
   }
 
   function clearErrors() {
@@ -65,7 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       setStatus(
-        data.message || "If an account exists, a reset email has been sent.",
+        data.message ||
+          "If the email you provided exists, a reset link has been sent to it.",
         "success",
       );
     } catch (error) {
