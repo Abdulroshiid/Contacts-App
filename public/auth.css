@@ -36,6 +36,14 @@
   padding-left: 40px;
 }
 
+.password-input-wrapper .input-icon {
+  left: 12px;
+}
+
+.password-input-wrapper input {
+  padding-left: 40px;
+}
+
 .divider {
   text-align: center;
   margin: 25px 0 20px;
