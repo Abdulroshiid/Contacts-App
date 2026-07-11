@@ -1,8 +1,24 @@
 // ==================== Password Toggle Function ====================
-function togglePassword(event, fieldId) {
-  const input = document.getElementById(fieldId);
-  const button = event.target.closest(".password-toggle");
-  const icon = button.querySelector("i");
+function togglePassword(eventOrFieldId, fieldId) {
+  const resolvedFieldId =
+    typeof eventOrFieldId === "string" ? eventOrFieldId : fieldId;
+  const input = document.getElementById(resolvedFieldId);
+
+  if (!input) {
+    return;
+  }
+
+  const button =
+    typeof eventOrFieldId === "string"
+      ? input
+          .closest(".password-input-wrapper")
+          ?.querySelector(".password-toggle")
+      : eventOrFieldId?.target?.closest(".password-toggle");
+  const icon = button?.querySelector("i");
+
+  if (!button || !icon) {
+    return;
+  }
 
   if (input.type === "password") {
     input.type = "text";
