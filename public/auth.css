@@ -51,6 +51,13 @@
   color: #111111;
 }
 
+.input-icon-wrapper input:focus,
+.password-input-wrapper input:focus {
+  background-color: #ffffff;
+  color: #111111;
+  border-color: var(--primary-color);
+}
+
 .divider {
   text-align: center;
   margin: 25px 0 20px;
