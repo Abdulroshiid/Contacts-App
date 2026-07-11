@@ -44,6 +44,13 @@
   padding-left: 40px;
 }
 
+.input-icon-wrapper:hover .input-icon,
+.password-input-wrapper:hover .input-icon,
+.input-icon-wrapper:focus-within .input-icon,
+.password-input-wrapper:focus-within .input-icon {
+  color: #111111;
+}
+
 .divider {
   text-align: center;
   margin: 25px 0 20px;
