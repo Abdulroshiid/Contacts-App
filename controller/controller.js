@@ -146,7 +146,7 @@ exports.forgotPassword = (req, res) => {
       if (!user) {
         return res.status(200).json({
           message:
-            "If an account exists for that email, a reset email has been sent.",
+            "If the email you provided exists, a reset link has been sent to it.",
         });
       }
 
@@ -179,7 +179,7 @@ exports.forgotPassword = (req, res) => {
                 await sendPasswordResetEmail(normalizedEmail, resetLink);
                 return res.status(200).json({
                   message:
-                    "If an account exists for that email, a reset email has been sent.",
+                    "If the email you provided exists, a reset link has been sent to it.",
                 });
               } catch (mailError) {
                 console.error("Password reset email failed:", mailError);
