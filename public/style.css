@@ -65,6 +65,14 @@ body {
   background-color: transparent;
 }
 
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
+  -webkit-text-fill-color: var(--text-color);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .form-group.error input {
   border-color: var(--danger-color);
 }
