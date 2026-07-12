@@ -352,21 +352,68 @@
 
 @media (max-width: 768px) {
   .dashboard-container {
-    padding: 20px;
+    padding: 16px;
+  }
+
+  .navbar {
+    padding: 16px;
   }
 
   .dashboard-card {
-    padding: 20px;
+    padding: 18px;
+    border-radius: 16px;
   }
 
   .navbar-content {
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    align-items: flex-start;
   }
 
   .navbar-actions {
     width: 100%;
     justify-content: space-between;
+    gap: 12px;
+  }
+
+  .dashboard-metrics {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 18px 0 16px;
+  }
+
+  .metric-card {
+    padding: 16px 18px;
+    border-radius: 14px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .header-left {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .search-wrapper {
+    max-width: none;
+  }
+
+  .header-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .card-header .btn-primary,
+  .card-header .btn-secondary {
+    width: 100%;
   }
 
   .table-row {
@@ -375,22 +422,15 @@
     padding: 12px;
   }
 
-  .card-header {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .card-header .btn-primary {
-    width: 100%;
-  }
-
   .contact-card {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 16px;
+    padding: 18px;
   }
 
   .contact-actions {
     width: 100%;
+    flex-direction: row;
   }
 
   .btn-edit,
@@ -402,6 +442,10 @@
 }
 
 @media (max-width: 480px) {
+  .dashboard-card {
+    padding: 16px;
+  }
+
   .dashboard-card h1 {
     font-size: 20px;
   }
@@ -418,5 +462,17 @@
   .search-input {
     padding: 12px 14px;
     max-width: none;
+  }
+
+  .header-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-actions {
+    flex-direction: column;
+  }
+
+  .metric-card strong {
+    font-size: 24px;
   }
 }
