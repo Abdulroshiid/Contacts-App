@@ -176,7 +176,19 @@ exports.forgotPassword = (req, res) => {
               const resetLink = `${process.env.APP_URL || `${req.protocol}://${req.get("host")}`}/reset-password.html?token=${token}`;
 
               try {
-                await sendPasswordResetEmail(normalizedEmail, resetLink);
+                const mailResult = await sendPasswordResetEmail(
+                  normalizedEmail,
+                  resetLink,
+                );
+
+                if (mailResult?.skipped) {
+                  return res.status(500).json({
+                    error:
+                      mailResult.reason ||
+                      "Unable to send reset email right now.",
+                  });
+                }
+
                 return res.status(200).json({
                   message:
                     "If the email you provided exists, a reset link has been sent to it.",

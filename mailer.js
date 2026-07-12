@@ -1,26 +1,34 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 
-const transporter =
-  process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS
-    ? nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT || 587),
-        secure: String(process.env.SMTP_PORT || "587") === "465",
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      })
-    : null;
+function createTransporter() {
+  if (process.env.SMTP_URL) {
+    return nodemailer.createTransport(process.env.SMTP_URL);
+  }
+
+  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    return nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: String(process.env.SMTP_PORT || "587") === "465",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+  }
+
+  return null;
+}
+
+const transporter = createTransporter();
 
 async function sendPasswordResetEmail(toEmail, resetLink) {
   if (!transporter) {
-    console.log(
-      "[password-reset] SMTP is not configured. Reset link:",
-      resetLink,
-    );
-    return { skipped: true };
+    const message =
+      "SMTP is not configured. Add SMTP_HOST, SMTP_USER, SMTP_PASS, and optionally SMTP_FROM to send reset emails.";
+    console.error("[password-reset]", message);
+    return { skipped: true, reason: message };
   }
 
   const fromAddress = process.env.SMTP_FROM || process.env.SMTP_USER;
