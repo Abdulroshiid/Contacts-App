@@ -42,6 +42,38 @@ function createTransporter() {
   });
 }
 
+function formatMailErrorMessage(error) {
+  const rawMessage = error?.response || error?.message || String(error || "");
+  const normalized = String(rawMessage).toLowerCase();
+
+  if (
+    normalized.includes("invalid login") ||
+    normalized.includes("bad credentials") ||
+    normalized.includes("username and password") ||
+    normalized.includes("auth")
+  ) {
+    return "The email server rejected the login. Please check your Gmail app password in .env and try again.";
+  }
+
+  if (
+    normalized.includes("econnrefused") ||
+    normalized.includes("getaddrinfo") ||
+    normalized.includes("timed out") ||
+    normalized.includes("connect")
+  ) {
+    return "The email server could not be reached. Please check your SMTP host, port, and network connection.";
+  }
+
+  if (
+    normalized.includes("certificate") ||
+    normalized.includes("self signed")
+  ) {
+    return "The email server connection is being blocked by a certificate issue. Please review your SMTP settings.";
+  }
+
+  return "We could not send the reset email. Please check your SMTP settings and try again.";
+}
+
 async function sendPasswordResetEmail(toEmail, resetLink) {
   const transporter = createTransporter();
 
@@ -79,13 +111,10 @@ async function sendPasswordResetEmail(toEmail, resetLink) {
 
     return { skipped: false, messageId: info.messageId };
   } catch (error) {
-    const message =
-      error?.response ||
-      error?.message ||
-      "Unable to send reset email right now.";
+    const message = formatMailErrorMessage(error);
     console.error("[password-reset]", message);
     return { skipped: true, reason: message };
   }
 }
 
-module.exports = { sendPasswordResetEmail };
+module.exports = { sendPasswordResetEmail, formatMailErrorMessage };
