@@ -146,7 +146,7 @@ exports.forgotPassword = (req, res) => {
       if (!user) {
         return res.status(200).json({
           message:
-            "If the email you provided exists, a reset link has been sent to it.",
+            "If the email you provided above exists, a reset link has been sent to it.",
         });
       }
 
