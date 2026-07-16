@@ -41,6 +41,28 @@ document.addEventListener("DOMContentLoaded", () => {
     errorGroups.forEach((group) => group.classList.remove("error"));
   }
 
+  function getFriendlyMessage(errorText) {
+    const text = String(errorText || "").toLowerCase();
+
+    if (
+      text.includes("smtp") ||
+      text.includes("mail") ||
+      text.includes("app password")
+    ) {
+      return "We couldn’t send the reset email right now. Please try again in a moment or contact support if the issue continues.";
+    }
+
+    if (text.includes("email is required")) {
+      return "Please enter the email address linked to your account.";
+    }
+
+    if (text.includes("invalid") || text.includes("not found")) {
+      return "We couldn’t find an account with that email. Please check the address and try again.";
+    }
+
+    return "We couldn’t complete that request right now. Please try again in a moment.";
+  }
+
   emailInput?.addEventListener("input", () => {
     const group = document.getElementById("emailGroup");
     const errorElement = document.getElementById("emailError");
@@ -74,7 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await response.json();
 
       if (!response.ok) {
-        setStatus(data.error || "Unable to prepare a reset link.", "error");
+        const friendlyMessage = getFriendlyMessage(data.error);
+        setStatus(friendlyMessage, "error");
         return;
       }
 
@@ -85,7 +108,10 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     } catch (error) {
       console.error("Forgot password error:", error);
-      setStatus("An error occurred. Please try again.", "error");
+      setStatus(
+        "We couldn’t complete your request right now. Please try again in a moment.",
+        "error",
+      );
     }
   });
 });
