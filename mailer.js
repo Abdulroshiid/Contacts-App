@@ -1,5 +1,10 @@
-require("dotenv").config();
+const dotenv = require("dotenv");
+dotenv.config();
 const nodemailer = require("nodemailer");
+
+function reloadEnv() {
+  dotenv.config();
+}
 
 function isPlaceholder(value) {
   if (!value) return true;
@@ -15,6 +20,8 @@ function isPlaceholder(value) {
 }
 
 function createTransporter() {
+  reloadEnv();
+
   if (process.env.SMTP_URL) {
     return nodemailer.createTransport(process.env.SMTP_URL);
   }
@@ -29,6 +36,16 @@ function createTransporter() {
 
   if (isPlaceholder(host) || isPlaceholder(user) || isPlaceholder(pass)) {
     return { placeholder: true };
+  }
+
+  if (String(host).toLowerCase().includes("gmail")) {
+    return nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user,
+        pass,
+      },
+    });
   }
 
   return nodemailer.createTransport({
