@@ -170,7 +170,9 @@ exports.forgotPassword = (req, res) => {
               if (insertErr) {
                 return res
                   .status(500)
-                  .json({ error: "Error preparing password reset" });
+                  .json({
+                    error: "An error occured when preparing password reset",
+                  });
               }
 
               const resetLink = `${process.env.APP_URL || `${req.protocol}://${req.get("host")}`}/reset-password.html?token=${token}`;
