@@ -4,7 +4,7 @@ const path = require("path");
 const dbPath = path.join(__dirname, "app.db");
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) console.error("Database connection error:", err);
-  else console.log("Connection to SQLite Database successful!");
+  else console.log("Successfully connected to SQLite Database!");
 });
 
 // Initialize tables
