@@ -1,6 +1,6 @@
 Contacts App — Full-stack contact manager
 
-Lightweight contact manager showcasing secure auth, sessions, and a polished vanilla-JS UI.
+Lightweight contact manager showcasing secure authentication and authorization, sessions, and a polished vanilla-JS UI.
 
 This README was updated to reflect recent UX improvements, import/export features, and backend bulk import support.
 
