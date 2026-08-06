@@ -168,11 +168,9 @@ exports.forgotPassword = (req, res) => {
             [user.id, token, expiresAt],
             async (insertErr) => {
               if (insertErr) {
-                return res
-                  .status(500)
-                  .json({
-                    error: "An error occured when preparing password reset",
-                  });
+                return res.status(500).json({
+                  error: "An error occured when preparing password reset",
+                });
               }
 
               const resetLink = `${process.env.APP_URL || `${req.protocol}://${req.get("host")}`}/reset-password.html?token=${token}`;
@@ -408,7 +406,7 @@ exports.updateContact = (req, res) => {
       }
 
       res.json({
-        message: "Contact updated successfully",
+        message: "Your contact have been updated successfully",
         id: contactId,
         name,
         phone,
