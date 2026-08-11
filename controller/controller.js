@@ -110,7 +110,7 @@ exports.logout = (req, res) => {
     if (err) {
       return res
         .status(500)
-        .json({ error: "Encoutered an error while logging out" });
+        .json({ error: "Encoutered an error while logging out!" });
     }
     res.status(200).json({ message: "Logged out successfully" });
   });
