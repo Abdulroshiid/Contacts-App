@@ -111,7 +111,8 @@ async function sendPasswordResetEmail(toEmail, resetLink) {
   const fromAddress = process.env.SMTP_FROM || process.env.SMTP_USER;
 
   try {
-    const info = await transporter.sendMail({
+    // Set a timeout of 10 seconds for the email send
+    const sendPromise = transporter.sendMail({
       from: fromAddress,
       to: toEmail,
       subject: "Reset your password",
@@ -125,6 +126,12 @@ async function sendPasswordResetEmail(toEmail, resetLink) {
         </div>
       `,
     });
+
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Email send timeout")), 10000),
+    );
+
+    const info = await Promise.race([sendPromise, timeoutPromise]);
 
     return { skipped: false, messageId: info.messageId };
   } catch (error) {
