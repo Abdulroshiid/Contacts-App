@@ -236,7 +236,7 @@ exports.resetPassword = (req, res) => {
       if (!resetRow) {
         return res
           .status(400)
-          .json({ error: "This reset link is invalid or has expired" });
+          .json({ error: "This reset link is invalid/has expired" });
       }
 
       if (new Date(resetRow.expires_at) < new Date()) {

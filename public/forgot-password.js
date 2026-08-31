@@ -93,7 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ email }),
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
+      console.log("Forgot password response:", response.status, data);
 
       if (!response.ok) {
         const friendlyMessage = getFriendlyMessage(data.error);
