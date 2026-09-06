@@ -90,11 +90,18 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-store",
         body: JSON.stringify({ email }),
       });
 
-      const data = await response.json().catch(() => ({}));
-      console.log("Forgot password response:", response.status, data);
+      const rawText = await response.text();
+      let data = {};
+
+      try {
+        data = rawText ? JSON.parse(rawText) : {};
+      } catch (parseError) {
+        console.warn("Forgot password response was not valid JSON:", rawText);
+      }
 
       if (!response.ok) {
         const friendlyMessage = getFriendlyMessage(data.error);

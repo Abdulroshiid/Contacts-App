@@ -49,29 +49,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!password) {
       document.getElementById("passwordGroup")?.classList.add("error");
-      document.getElementById("passwordError").textContent =
-        "Password is required.";
+      const passwordError = document.getElementById("passwordError");
+      if (passwordError) passwordError.textContent = "Password is required.";
       return;
     }
 
     if (password.length < 6) {
       document.getElementById("passwordGroup")?.classList.add("error");
-      document.getElementById("passwordError").textContent =
-        "Password must be at least 6 characters.";
+      const passwordError = document.getElementById("passwordError");
+      if (passwordError) {
+        passwordError.textContent = "Password must be at least 6 characters.";
+      }
       return;
     }
 
     if (!confirmPassword) {
       document.getElementById("confirmPasswordGroup")?.classList.add("error");
-      document.getElementById("confirmPasswordError").textContent =
-        "Please confirm your password.";
+      const confirmPasswordError = document.getElementById(
+        "confirmPasswordError",
+      );
+      if (confirmPasswordError) {
+        confirmPasswordError.textContent = "Please confirm your password.";
+      }
       return;
     }
 
     if (password !== confirmPassword) {
       document.getElementById("confirmPasswordGroup")?.classList.add("error");
-      document.getElementById("confirmPasswordError").textContent =
-        "Passwords do not match.";
+      const confirmPasswordError = document.getElementById(
+        "confirmPasswordError",
+      );
+      if (confirmPasswordError) {
+        confirmPasswordError.textContent = "Passwords do not match.";
+      }
       return;
     }
 
