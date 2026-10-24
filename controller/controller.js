@@ -77,7 +77,9 @@ exports.login = (req, res) => {
     [username, username],
     (err, user) => {
       if (err) {
-        return res.status(500).json({ error: "Error querying database" });
+        return res
+          .status(500)
+          .json({ error: "An error occurred while querying the database" });
       }
 
       if (!user) {
