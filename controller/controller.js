@@ -28,7 +28,9 @@ exports.signup = (req, res) => {
   // Hash password
   bcryptjs.hash(password, 10, (err, hashedPassword) => {
     if (err) {
-      return res.status(500).json({ error: "Error hashing password" });
+      return res
+        .status(500)
+        .json({ error: "An error occurred while hashing the password" });
     }
 
     // Create user
