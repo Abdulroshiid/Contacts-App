@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       text.includes("mail") ||
       text.includes("app password")
     ) {
-      return "We couldn’t send the reset email right now. Please try again in a moment or contact support if the issue continues.";
+      return "We couldn’t send the reset email right now. Please try again in a moment.";
     }
 
     if (text.includes("email is required")) {
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (text.includes("invalid") || text.includes("not found")) {
-      return "We couldn’t find an account with that email. Please check the address and try again.";
+      return "We couldn’t find an account with that email. Please check the email and try again.";
     }
 
     return "We couldn’t complete that request right now. Please try again in a moment.";
