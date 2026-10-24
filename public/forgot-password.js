@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setStatus(
         data.message ||
-          "If the email you provided exists, a reset link has been sent to it.",
+          "If the email you provided exists, a reset link has been sent to the email.",
         "success",
       );
     } catch (error) {
