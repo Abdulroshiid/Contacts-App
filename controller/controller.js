@@ -228,7 +228,9 @@ exports.resetPassword = (req, res) => {
   if (password.length < 6) {
     return res
       .status(400)
-      .json({ error: "Password must be at least 6 characters" });
+      .json({
+        error: "Password must be must be up to or more than 6 characters",
+      });
   }
 
   db.get(
