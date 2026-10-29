@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return "We couldn’t find an account with that email. Please check the email and try again.";
     }
 
-    return "We couldn’t complete that request right now. Please try again in a moment.";
+    return "We couldn’t complete your request right now. Please try again in a moment.";
   }
 
   emailInput?.addEventListener("input", () => {
