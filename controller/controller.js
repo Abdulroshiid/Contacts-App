@@ -90,7 +90,9 @@ exports.login = (req, res) => {
 
       bcryptjs.compare(password, user.password, (err, isPasswordValid) => {
         if (err) {
-          return res.status(500).json({ error: "Error comparing passwords" });
+          return res
+            .status(500)
+            .json({ error: "An error occurred while comparing passwords" });
         }
 
         if (!isPasswordValid) {
@@ -116,7 +118,7 @@ exports.logout = (req, res) => {
         .status(500)
         .json({ error: "Encoutered an error while logging out!" });
     }
-    res.status(200).json({ message: "Logged out successfully" });
+    res.status(200).json({ message: "You've been logged out successfully" });
   });
 };
 
