@@ -226,11 +226,9 @@ exports.resetPassword = (req, res) => {
   }
 
   if (password.length < 6) {
-    return res
-      .status(400)
-      .json({
-        error: "Password must be must be up to or more than 6 characters",
-      });
+    return res.status(400).json({
+      error: "Password must be must be up to or more than 6 characters",
+    });
   }
 
   db.get(
@@ -373,7 +371,7 @@ exports.importContacts = (req, res) => {
       if (err) {
         return res
           .status(500)
-          .json({ error: "Error importing contacts into the database." });
+          .json({ error: "Error importing contacts. Try again later" });
       }
 
       const response = {
