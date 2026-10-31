@@ -315,7 +315,9 @@ exports.createContact = (req, res) => {
     [req.session.userId, name, phone, address, trimmedCategory],
     function (err) {
       if (err) {
-        return res.status(500).json({ error: "Error creating contact" });
+        return res
+          .status(500)
+          .json({ error: "There was an error creating contact" });
       }
       res.status(201).json({
         id: this.lastID,
