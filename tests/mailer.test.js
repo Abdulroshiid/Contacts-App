@@ -28,10 +28,10 @@ test("returns a demo-mode result when SMTP is not configured", async () => {
     SMTP_FROM: process.env.SMTP_FROM,
   };
 
-  delete process.env.SMTP_HOST;
-  delete process.env.SMTP_USER;
-  delete process.env.SMTP_PASS;
-  delete process.env.SMTP_FROM;
+  process.env.SMTP_HOST = "";
+  process.env.SMTP_USER = "";
+  process.env.SMTP_PASS = "";
+  process.env.SMTP_FROM = "";
 
   try {
     const { sendPasswordResetEmail } = require("../mailer");
