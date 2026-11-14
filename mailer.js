@@ -97,15 +97,34 @@ async function sendPasswordResetEmail(toEmail, resetLink) {
   if (!transporter) {
     const message =
       "SMTP is not configured. Add SMTP_HOST, SMTP_USER, SMTP_PASS, and optionally SMTP_FROM to send reset emails.";
-    console.error("[password-reset]", message);
-    return { skipped: true, reason: message };
+    console.warn("[password-reset] Demo mode: SMTP is not configured.", {
+      toEmail,
+      resetLink,
+    });
+    return {
+      skipped: true,
+      demoMode: true,
+      reason: message,
+      resetLink,
+    };
   }
 
   if (transporter.placeholder) {
     const message =
       "SMTP credentials are still placeholders. Replace SMTP_USER and SMTP_PASS in .env with your real Gmail address and app password, then restart the app.";
-    console.error("[password-reset]", message);
-    return { skipped: true, reason: message };
+    console.warn(
+      "[password-reset] Demo mode: SMTP credentials are placeholders.",
+      {
+        toEmail,
+        resetLink,
+      },
+    );
+    return {
+      skipped: true,
+      demoMode: true,
+      reason: message,
+      resetLink,
+    };
   }
 
   const fromAddress = process.env.SMTP_FROM || process.env.SMTP_USER;

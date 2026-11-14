@@ -188,6 +188,21 @@ exports.forgotPassword = (req, res) => {
                 );
 
                 if (mailResult?.skipped) {
+                  if (mailResult.demoMode) {
+                    console.warn(
+                      "[password-reset] using demo mode because SMTP is not configured.",
+                      {
+                        email: normalizedEmail,
+                        resetLink,
+                      },
+                    );
+
+                    return res.status(200).json({
+                      message:
+                        "If the email you provided exists, a reset link has been generated. Email delivery is disabled in this environment, so the reset link has been logged to the server console.",
+                    });
+                  }
+
                   return res.status(500).json({
                     error:
                       mailResult.reason ||
